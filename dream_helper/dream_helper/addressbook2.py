@@ -8,6 +8,7 @@ import os
 
 # file_name = 'AddressBook.bin'
 file_path = Path(__file__).parent / 'AddressBook.bin'
+separator = "\n" + "-" * 50
 
 class Record:
     def __init__(self, name, phone=None, birthday=None, email=None, address=None, notes=''): 
@@ -154,9 +155,10 @@ def is_valid_email(email):
 
 
 def add_contact():
+    ab = init_addressbook()
     while True:
         name = input("Enter contact name\n>_ ")
-        for record in AB:
+        for record in ab:
             if name == record.name:
                 print('Contact already exists')
                 continue
@@ -201,22 +203,23 @@ def add_contact():
         note = ''
         
     record = Record(name, phone, birthday, email, address, note)
-    add_record(record)
+    ab.append(record)
+    write_ab(file_path, ab)
     print('Contact added')
-    print(record)
+    print(separator)
+    
+    
+def show_addressbook():
+    ab = read_ab(file_path)
+    for record in ab:
+        print(record)
+        print(separator)
+    
     
 def main():
-    test_ab = init_addressbook()
-    for record in test_ab:
-        print(record)
-    record = Record('Bob', '123456789', '11-02-1991', 'email@mail.com', 'my address', 'some note')
-    add_record(record)
-    for record in test_ab:
-        print(record)
-    write_ab(file_path, test_ab)
-    test_ab2 = init_addressbook()
-    for record in test_ab2:
-        print(record)
+    add_contact()
+    show_addressbook()
+    
     
     
 if __name__ == "__main__":

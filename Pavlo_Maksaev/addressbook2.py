@@ -5,12 +5,12 @@ import re
 #from fake_content_2 import users
 
 
-AB = [] #empty AddressBook
+#AB = [] #empty AddressBook
 
 
 def write_AB(path, adr_book):
     with open(path, 'wb') as file:
-            pickle.dump(adr_book, file)
+        pickle.dump(adr_book, file)
 
 def read_AB(path): 
     if path.exists():
