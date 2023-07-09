@@ -2,7 +2,7 @@ import pickle
 from datetime import datetime
 from pathlib import Path
 import re
-from fake_content_2 import users
+#from fake_content_2 import users
 
 
 AB = [] #empty AddressBook
