@@ -1,11 +1,11 @@
 from tkinter import *
-import sort2
+# import sort2
 
 
 def sorter():
     folder = ent_sort.get()
     folder_path = folder
-    sort2.main(folder_path)
+    # sort2.main(folder_path)
 
 def exit_but():
     tks.destroy()
