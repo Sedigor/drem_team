@@ -14,7 +14,7 @@ def change_contact():
     pass
 
 def del_contact():
-    pass
+    ab_2.del_record()
 
 def exit_but():
     tka.destroy()

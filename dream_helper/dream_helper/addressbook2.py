@@ -87,10 +87,13 @@ def add_record(record):
     AB.append(record)
     
     
-def del_record(name):
-    for i, rec in enumerate(AB):
-        if rec.name == name:
-            AB.pop(i)
+def del_record():
+    ab = init_addressbook()
+    name = input("Enter a contact name\n>_ ")
+    new_ab = list(filter(lambda record: record.name != name, ab))
+    write_ab(file_path, new_ab)
+    print('Address Book updated')
+    print(separator)
 
 def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=True, flag_email=False, flag_address=False, flag_notes=False):
     ab = init_addressbook()
@@ -137,9 +140,6 @@ def search_contact():
             print(rec)
             print(separator)
     
-    
-
-            
 
 def is_valid_birthday(birthday):
     try:
@@ -231,7 +231,6 @@ def show_addressbook():
     
     
 def main():
-    add_contact()
     show_addressbook()
     
     
