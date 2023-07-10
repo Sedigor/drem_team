@@ -3,7 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import re
 import os
-#from fake_content_2 import users
+from fake_content import users
 
 
 # file_name = 'AddressBook.bin'
@@ -52,7 +52,15 @@ class Record:
     def add_new_phone(self, new_phone):
         self.phones.append(new_phone)
        
-
+    def info(self):
+        print('\n| {:<15} {}\n|'.format('Contact info:', self.name))
+        print('| {:<15}| {}'.format('Phones', ', '.join(self.phones)))
+        print('| {:<15}| {}'.format('Birthday', self.data_str))
+        print('| {:<15}| {}'.format('Email', self.email))
+        print('| {:<15}| {}'.format('Address', self.address))
+        print('| {:<15}| {}'.format('Notes', self.notes))
+        print('-' * 80)
+        
     def del_phone(self, phone=''):
         if not phone:
             self.phones.pop()  #delete the last phone number
@@ -276,11 +284,21 @@ def show_addressbook():
         print(separator)
     else:
         for record in ab:
-            print(separator)
-            print(record)
+            record.info()
     
     
+def feed_addressbook():
+    ab = init_addressbook()
+    
+    for user in users:
+        record = Record(user['name'], user['phone'], user['birthday'], user['email'], user['address'], user['note'])
+        ab.append(record)
+    
+    write_ab(file_path, ab)
+        
+        
 def main():
+    feed_addressbook()        
     show_addressbook()
     
     

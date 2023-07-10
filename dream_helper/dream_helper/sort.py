@@ -102,6 +102,38 @@ def main(path_from_sort_menu):
         
 
     folder_check(current_path)
-    print('---Done---')
-    print('Found extentions: ', list(found_extention))
-    print('Unknown extentions: ', list(unknown_extention))
+    
+    found_imag_ext = []
+    found_vid_ext = []
+    found_doc_ext = []
+    found_aud_ext = []
+    found_arch_ext = []
+    found_other_ext = []
+    
+    
+    for ext in found_extention:
+        if ext in dict_extentions['images']:
+            found_imag_ext.append(ext)
+        elif ext in dict_extentions['video']:
+            found_vid_ext.append(ext)
+        elif ext in dict_extentions['documents']:
+            found_doc_ext.append(ext)
+        elif ext in dict_extentions['audio']:
+            found_aud_ext.append(ext)
+        elif ext in dict_extentions['archives']:
+            found_arch_ext.append(ext)
+    print('\n')
+    print('Done!\n')        
+    print('Foun extensions:\n')        
+    print('| {:<15}| {}'.format('Format', 'Extension'))
+    print('-' * 60)
+    print('| {:<15}| {}'.format('Image', ', '.join(found_imag_ext)))
+    print('| {:<15}| {}'.format('video', ', '.join(found_vid_ext)))
+    print('| {:<15}| {}'.format('Documents', ', '.join(found_doc_ext)))
+    print('| {:<15}| {}'.format('Audio', ', '.join(found_aud_ext)))
+    print('| {:<15}| {}'.format('Archives', ', '.join(found_arch_ext)))
+    print('| {:<15}| {}'.format('Other', ', '.join(list(unknown_extention))))
+    
+    # print('---Done---')
+    # print('Found extentions: ', list(found_extention))
+    # print('Unknown extentions: ', list(unknown_extention))
