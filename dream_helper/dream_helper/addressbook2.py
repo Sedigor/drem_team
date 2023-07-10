@@ -9,6 +9,7 @@ import os
 # file_name = 'AddressBook.bin'
 file_path = Path(__file__).parent / 'AddressBook.bin'
 separator = "\n" + "-" * 50
+message_prefix = "bot >>_ "
 
 class Record:
     def __init__(self, name, phone=None, birthday=None, email=None, address=None, notes=''): 
@@ -99,6 +100,34 @@ def days_to_birthday():
             days_left = (next_birthday - today).days
             print(f"{rec.name}: days to next birthday {days_left}")
             print(separator)
+            
+            
+def edit_contact():
+    ab = init_addressbook()
+    name = input("Enter contact name to edit\n>_ ")
+    counter = 0
+    
+    for rec in ab:
+        if rec.name == name:
+            record = ab.pop(counter)
+        counter +=1
+    
+    option = input("Choose edit option. add - Add phone number, del - Delete phone number\n>_ ")
+    phone = input("Enter phone number\n>_ ")
+    
+    if option == "add":
+        record.add_new_phone(phone)
+        ab.append(record)
+        write_ab(file_path, ab)
+        print("Contact has been updated")
+        print(separator)
+    
+    if option == "del":
+        record.del_phone(phone)
+        ab.append(record)
+        write_ab(file_path, ab)
+        print("Contact has been updated")
+        print(separator)
 
     
 def del_record():
@@ -106,7 +135,7 @@ def del_record():
     name = input("Enter a contact name\n>_ ")
     new_ab = list(filter(lambda record: record.name != name, ab))
     write_ab(file_path, new_ab)
-    print('Address Book updated')
+    print('Address Book has been updated')
     print(separator)
 
 
@@ -240,13 +269,18 @@ def add_contact():
     
 def show_addressbook():
     ab = read_ab(file_path)
-    for record in ab:
-        print(record)
+    if len(ab) == 0:
         print(separator)
+        print("AddressBook is empty")
+        print(separator)
+    else:
+        for record in ab:
+            print(separator)
+            print(record)
     
     
 def main():
-    days_to_birthday()
+    show_addressbook()
     
     
     

@@ -11,7 +11,7 @@ def add_contact():
     ab_2.add_contact()
 
 def change_contact():
-    pass
+    ab_2.edit_contact()
 
 def del_contact():
     ab_2.del_record()
