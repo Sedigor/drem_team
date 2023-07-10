@@ -1,15 +1,18 @@
 from tkinter import *
+import notebook2 as nb2
+
+
 def find_notes():
-    pass
+    nb2.search_record()
 
 def add_note():
-    pass
+    nb2.new_record()
 
 def change_note():
-    pass
+    nb2.edit_record()
 
 def del_note():
-    pass
+    nb2.remuve_record()
 
 def exit_but():
     tkn.destroy()
