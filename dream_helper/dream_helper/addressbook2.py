@@ -93,7 +93,9 @@ def del_record(name):
             AB.pop(i)
 
 def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=False, flag_email=False, flag_address=False, flag_notes=False):
+    ab = init_addressbook()
     out_str = []
+    
     if flag_all:
         flag_name = True
         flag_phone = True
@@ -158,10 +160,9 @@ def add_contact():
     ab = init_addressbook()
     while True:
         name = input("Enter contact name\n>_ ")
-        for record in ab:
-            if name == record.name:
-                print('Contact already exists')
-                continue
+        if name in map(lambda record: record.name, ab):
+            print('Contact already exists')
+            continue
         break
         
     while True:
