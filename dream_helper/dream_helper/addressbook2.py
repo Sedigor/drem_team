@@ -33,6 +33,7 @@ class Record:
                 else:
                     print('Error, incorrect date format')
             except ValueError as err:
+                self.data_str = ''
                 print('Error, ' + str(err))
 
         else:
