@@ -1,9 +1,9 @@
 from tkinter import *
+import clean
 
 def sorter():
     folder = ent_sort.get()
-    if folder == "c":
-        print("Ok")
+    clean.main(folder)
 
 def exit_but():
     tks.destroy()
