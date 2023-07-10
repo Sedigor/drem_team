@@ -2,7 +2,7 @@ from tkinter import *
 import addressbook2 as ab_2
 
 def find_contacts():
-    pass
+    ab_2.search_contact()
 
 def birthdays():
     pass

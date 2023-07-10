@@ -92,7 +92,7 @@ def del_record(name):
         if rec.name == name:
             AB.pop(i)
 
-def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=False, flag_email=False, flag_address=False, flag_notes=False):
+def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=True, flag_email=False, flag_address=False, flag_notes=False):
     ab = init_addressbook()
     out_str = []
     
@@ -103,7 +103,7 @@ def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=False, f
         flag_address = True
         flag_notes = True
 
-    for rec in AB:
+    for rec in ab:
         if flag_name and part_str in rec.name:
             out_str.append(f'\n {rec.name}')
             
@@ -125,6 +125,19 @@ def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=False, f
             out_str.append(f'\n {rec.name}: {rec.notes}')
 
     return out_str
+
+
+def search_contact():
+    ab = init_addressbook()
+    sample = input("Write searching sample\n>_ ")
+
+    for rec in ab:
+        phones = ", ".join(rec.phones)
+        if rec.name.find(sample) > -1 or phones.find(sample) > -1 or rec.email.find(sample) > -1:
+            print(rec)
+            print(separator)
+    
+    
 
             
 
