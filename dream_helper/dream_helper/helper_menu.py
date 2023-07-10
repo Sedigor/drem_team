@@ -1,27 +1,27 @@
 from tkinter import *
-import addressbook
-import notebook
-import sort
-import other
+import addressbook_menu
+import notebook_menu
+import sort_menu
+import other_menu
 
 def addressbook_but():
-    addressbook.main()
+    addressbook_menu.main()
 
 def notebook_but():
-    notebook.main()
+    notebook_menu.main()
 
 def sorter_but():
-    sort.main()
+    sort_menu.main()
 
 def other_but():
-    other.main()
+    other_menu.main()
 
 def exit_but():
     tk.destroy()
     try:
-        addressbook.tka.destroy()
-        notebook.tkn.destroy()
-        sort.tks.destroy()
+        addressbook_menu.tka.destroy()
+        notebook_menu.tkn.destroy()
+        sort_menu.tks.destroy()
     except:
         print("Goodbye!")
 
