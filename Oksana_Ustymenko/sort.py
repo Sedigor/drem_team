@@ -1,4 +1,5 @@
 from tkinter import *
+
 def sorter():
     folder = ent_sort.get()
     if folder == "c":

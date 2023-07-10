@@ -5,16 +5,22 @@ import sort
 import other
 
 def addressbook_but():
+    tk.lower()
     addressbook.main()
+    tk.lift()
 
 def notebook_but():
+    tk.lower()
     notebook.main()
+    tk.lift()
 
 def sorter_but():
     sort.main()
 
 def other_but():
+    tk.lower()
     other.main()
+    tk.lift()
 
 def exit_but():
     tk.destroy()
@@ -23,7 +29,7 @@ def exit_but():
         notebook.tkn.destroy()
         sort.tks.destroy()
     except:
-        print("Goodbye!")
+        pass
 
 
 def main():
