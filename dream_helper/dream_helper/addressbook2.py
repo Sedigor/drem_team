@@ -80,12 +80,26 @@ def init_addressbook():
     return ab
 
 
-AB = init_addressbook()
+# AB = init_addressbook()
 
 
-def add_record(record):
-    AB.append(record)
+# def add_record(record):
+#     AB.append(record)
     
+
+def days_to_birthday():
+    ab = init_addressbook()
+    today = datetime.today()
+    for rec in ab:
+        if rec.data_str:
+            day, month, _ = map(int, rec.data_str.split('.'))
+            next_birthday = datetime(today.year, month, day)
+            if next_birthday < today:
+                next_birthday = datetime(today.year + 1, month, day)
+            days_left = (next_birthday - today).days
+            print(f"{rec.name}: days to next birthday {days_left}")
+            print(separator)
+
     
 def del_record():
     ab = init_addressbook()
@@ -95,39 +109,40 @@ def del_record():
     print('Address Book updated')
     print(separator)
 
-def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=True, flag_email=False, flag_address=False, flag_notes=False):
-    ab = init_addressbook()
-    out_str = []
+
+# def find_in_record(part_str, flag_all=False, flag_name=True, flag_phone=True, flag_email=False, flag_address=False, flag_notes=False):
+#     ab = init_addressbook()
+#     out_str = []
     
-    if flag_all:
-        flag_name = True
-        flag_phone = True
-        flag_email = True
-        flag_address = True
-        flag_notes = True
+#     if flag_all:
+#         flag_name = True
+#         flag_phone = True
+#         flag_email = True
+#         flag_address = True
+#         flag_notes = True
 
-    for rec in ab:
-        if flag_name and part_str in rec.name:
-            out_str.append(f'\n {rec.name}')
+#     for rec in ab:
+#         if flag_name and part_str in rec.name:
+#             out_str.append(f'\n {rec.name}')
             
-        if flag_phone:
-            phones = []
-            for phone in rec.phones:
-                if part_str in phone:
-                    phones.append(phone)
-            if phones:
-                out_str.append(f'\n {rec.name}: {phones}')
+#         if flag_phone:
+#             phones = []
+#             for phone in rec.phones:
+#                 if part_str in phone:
+#                     phones.append(phone)
+#             if phones:
+#                 out_str.append(f'\n {rec.name}: {phones}')
 
-        if flag_email and part_str in rec.email:
-            out_str.append(f'\n {rec.name}: {rec.email}')
+#         if flag_email and part_str in rec.email:
+#             out_str.append(f'\n {rec.name}: {rec.email}')
 
-        if flag_address and part_str in rec.address:
-            out_str.append(f'\n {rec.name}: {rec.address}')
+#         if flag_address and part_str in rec.address:
+#             out_str.append(f'\n {rec.name}: {rec.address}')
 
-        if flag_notes and part_str in rec.notes:
-            out_str.append(f'\n {rec.name}: {rec.notes}')
+#         if flag_notes and part_str in rec.notes:
+#             out_str.append(f'\n {rec.name}: {rec.notes}')
 
-    return out_str
+#     return out_str
 
 
 def search_contact():
@@ -231,7 +246,7 @@ def show_addressbook():
     
     
 def main():
-    show_addressbook()
+    days_to_birthday()
     
     
     

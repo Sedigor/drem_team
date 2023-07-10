@@ -5,7 +5,7 @@ def find_contacts():
     ab_2.search_contact()
 
 def birthdays():
-    pass
+    ab_2.days_to_birthday()
 
 def add_contact():
     ab_2.add_contact()
