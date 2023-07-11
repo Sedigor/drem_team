@@ -4,12 +4,13 @@ from pathlib import Path
 import re
 import os
 from fake_content import users
+import bot_messages as bm
 
 
 # file_name = 'AddressBook.bin'
 file_path = Path(__file__).parent / 'AddressBook.bin'
 separator = "\n" + "-" * 50
-message_prefix = "bot >>_ "
+mp = bm.prefix
 
 class Record:
     def __init__(self, name, phone=None, birthday=None, email=None, address=None, notes=''): 
@@ -31,10 +32,10 @@ class Record:
                     self.birthday = datetime.strptime(self.data_str, '%Y.%m.%d')
                     self.data_str = self.birthday.strftime('%d.%m.%Y')
                 else:
-                    print('Error, incorrect date format')
+                    print(f'{mp}Error, incorrect date format')
             except ValueError as err:
                 self.data_str = ''
-                print('Error, ' + str(err))
+                print(f'{mp}Error, ' + str(err))
 
         else:
             self.data_str = ''
@@ -80,7 +81,8 @@ def write_ab(file_path, addressbook):
 
 def read_ab(file_path): 
     with open(file_path, 'rb') as fh:
-        return pickle.load(fh)
+        ab = pickle.load(fh)
+    return ab
         
         
 def init_addressbook():
@@ -100,6 +102,7 @@ def init_addressbook():
 def days_to_birthday():
     ab = init_addressbook()
     today = datetime.today()
+    found = {}
     for rec in ab:
         if rec.data_str:
             day, month, _ = map(int, rec.data_str.split('.'))
@@ -107,35 +110,42 @@ def days_to_birthday():
             if next_birthday < today:
                 next_birthday = datetime(today.year + 1, month, day)
             days_left = (next_birthday - today).days
-            print(f"{rec.name}: days to next birthday {days_left}")
-            print(separator)
+            found[rec.name] = [rec.data_str, days_left]
+            # print(f"{mp}{rec.name}: days to next birthday {days_left}")
+            # print(separator)
+    print(mp, 'Birthday info:\n')
+    print('| {:<25}| {}'.format('Name', 'Birthday'))
+    for k, v in found.items():
+        print('| {:<25}| {}, {} days left'.format(k, v[0], v[1]))
             
             
 def edit_contact():
     ab = init_addressbook()
-    name = input("Enter contact name to edit\n>_ ")
+    print(mp,"Enter contact name to edit")
+    name = input("\n>_ ")
     counter = 0
     
     for rec in ab:
         if rec.name == name:
             record = ab.pop(counter)
         counter +=1
-    
-    option = input("Choose edit option. add - Add phone number, del - Delete phone number\n>_ ")
-    phone = input("Enter phone number\n>_ ")
+    print(mp,'Choose edit option. add - Add phone number, del - Delete phone number')
+    option = input("\n>_ ")
+    print(mp, 'Enter phone number')
+    phone = input("\n>_ ")
     
     if option == "add":
         record.add_new_phone(phone)
         ab.append(record)
         write_ab(file_path, ab)
-        print("Contact has been updated")
+        print(mp,"Contact has been updated")
         print(separator)
     
     if option == "del":
         record.del_phone(phone)
         ab.append(record)
         write_ab(file_path, ab)
-        print("Contact has been updated")
+        print(mp,"Contact has been updated")
         print(separator)
 
     
@@ -280,7 +290,7 @@ def show_addressbook():
     ab = read_ab(file_path)
     if len(ab) == 0:
         print(separator)
-        print("AddressBook is empty")
+        print(mp,"AddressBook is empty")
         print(separator)
     else:
         for record in ab:
@@ -300,6 +310,7 @@ def feed_addressbook():
 def main():
     feed_addressbook()        
     show_addressbook()
+    days_to_birthday()
     
     
     
