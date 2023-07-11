@@ -32,7 +32,7 @@ def color_resistor():
             break
         elif len(c) < 3 or len(c) > 6:
             print('\n           Не відповідна кількість літер!\n  ')
-            input('           Для продовженнч натисніть <Enter>:')
+            input('           Для продовження натисніть <Enter>:')
             continue
         c = c.upper()
 
