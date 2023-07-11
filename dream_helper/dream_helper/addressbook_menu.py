@@ -9,6 +9,7 @@ def birthdays():
 
 def add_contact():
     addressbook.add_contact()
+    # addressbook.feed_addressbook()
 
 def change_contact():
     addressbook.edit_contact()

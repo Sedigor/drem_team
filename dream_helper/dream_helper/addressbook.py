@@ -307,12 +307,12 @@ def feed_addressbook():
     write_ab(file_path, ab)
         
         
-def main():
-    feed_addressbook()        
-    show_addressbook()
-    days_to_birthday()
+# def main():
+#     feed_addressbook()        
+    # show_addressbook()
+    # days_to_birthday()
     
     
     
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
