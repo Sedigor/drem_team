@@ -1,5 +1,16 @@
-from tkinter import *
-import notebook2 as nb2
+
+from datetime import datetime
+import os
+import pickle
+from pathlib import Path
+
+mp = '\nhelper>>_ '
+separator = mp + "End option"
+notes = {}
+max_nunber = 1
+# file_name = Path(__file__).parent / 'Notes.bin'
+file_name = 'Notes.bin'        
+
 
 
 def find_notes():
