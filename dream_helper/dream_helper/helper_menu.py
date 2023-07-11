@@ -23,7 +23,7 @@ def exit_but():
         notebook_menu.tkn.destroy()
         sort_menu.tks.destroy()
     except:
-        print("Goodbye!")
+        print("\nhelper>>_ Goodbye!")
 
 
 def main():

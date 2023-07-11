@@ -9,7 +9,7 @@ import bot_messages as bm
 
 # file_name = 'AddressBook.bin'
 file_path = Path(__file__).parent / 'AddressBook.bin'
-separator = "\n" + "-" * 50
+separator = "\nhelper>>_ End option"
 mp = bm.prefix
 
 class Record:
@@ -60,7 +60,7 @@ class Record:
         print('| {:<15}| {}'.format('Email', self.email))
         print('| {:<15}| {}'.format('Address', self.address))
         print('| {:<15}| {}'.format('Notes', self.notes))
-        print('-' * 80)
+        # print('-' * 80)
         
     def del_phone(self, phone=''):
         if not phone:
@@ -92,13 +92,6 @@ def init_addressbook():
     return ab
 
 
-# AB = init_addressbook()
-
-
-# def add_record(record):
-#     AB.append(record)
-    
-
 def days_to_birthday():
     ab = init_addressbook()
     today = datetime.today()
@@ -113,10 +106,11 @@ def days_to_birthday():
             found[rec.name] = [rec.data_str, days_left]
             # print(f"{mp}{rec.name}: days to next birthday {days_left}")
             # print(separator)
-    print(mp, 'Birthday info:\n')
+    print(mp,'Birthday info:\n')
     print('| {:<25}| {}'.format('Name', 'Birthday'))
     for k, v in found.items():
         print('| {:<25}| {}, {} days left'.format(k, v[0], v[1]))
+    print(separator)
             
             
 def edit_contact():
@@ -139,6 +133,7 @@ def edit_contact():
         ab.append(record)
         write_ab(file_path, ab)
         print(mp,"Contact has been updated")
+        record.info()
         print(separator)
     
     if option == "del":
@@ -146,15 +141,17 @@ def edit_contact():
         ab.append(record)
         write_ab(file_path, ab)
         print(mp,"Contact has been updated")
+        record.info()
         print(separator)
 
     
 def del_record():
     ab = init_addressbook()
-    name = input("Enter a contact name\n>_ ")
+    print(mp,'Enter a contact name')
+    name = input("\n>_ ")
     new_ab = list(filter(lambda record: record.name != name, ab))
     write_ab(file_path, new_ab)
-    print('Address Book has been updated')
+    print(mp,'Address Book has been updated')
     print(separator)
 
 
@@ -195,13 +192,18 @@ def del_record():
 
 def search_contact():
     ab = init_addressbook()
-    sample = input("Write searching sample\n>_ ")
+    found_contacts = []
+    print(mp,'Write searching sample')
+    sample = input("\n>_ ")
 
     for rec in ab:
         phones = ", ".join(rec.phones)
         if rec.name.find(sample) > -1 or phones.find(sample) > -1 or rec.email.find(sample) > -1:
-            print(rec)
-            print(separator)
+            found_contacts.append(rec)
+    print(mp,'Contacts found')
+    for rec in found_contacts:
+        rec.info()
+    print(separator)
     
 
 def is_valid_birthday(birthday):
@@ -235,54 +237,61 @@ def is_valid_email(email):
 def add_contact():
     ab = init_addressbook()
     while True:
-        name = input("Enter contact name\n>_ ")
+        print(mp,'Enter contact name')
+        name = input("\n>_ ")
         if name in map(lambda record: record.name, ab):
-            print('Contact already exists')
+            print(mp,'Contact already exists')
             continue
         break
         
     while True:
-        phone = input("Enter phone number. To skip press Enter\n>_ ")
+        print(mp,'Enter phone number. To skip press Enter')
+        phone = input("\n>_ ")
         if not phone:
             phone = None
             break
         if is_valid_phone(phone):
             break
-        print('Wrong number type')
+        print(mp,'Wrong number type')
         continue
         
     while True:
-        birthday = input("Enter birthday in format dd-mm-yyyy. To skip press Enter\n>_ ")
+        print(mp,'Enter birthday in format dd-mm-yyyy. To skip press Enter')
+        birthday = input("\n>_ ")
         if not birthday:
             birthday = None
             break
         if is_valid_birthday(birthday):
             break
-        print('Wrong birthday type')
+        print(mp,'Wrong birthday type')
         continue
 
     while True:
-        email = input("Enter email. To skip press Enter\n>_ ")
+        print(mp,'Enter email. To skip press Enter')
+        email = input("\n>_ ")
         if not email:
             email = None
             break
         if is_valid_email(email):
             break
-        print('Wrong email')
+        print(mp,'Wrong email')
         continue
     
-    address = input("Enter address. To skip press Enter\n>_ ")
+    print(mp,'Enter address. To skip press Enter')
+    address = input("\n>_ ")
     if not address:
         address = None
-        
-    note = input("Add note to contact. To skip press Enter\n>_ ")
+    
+    print(mp,'Add note to contact. To skip press Enter')    
+    note = input("\n>_ ")
     if not note:
         note = ''
         
     record = Record(name, phone, birthday, email, address, note)
     ab.append(record)
     write_ab(file_path, ab)
-    print('Contact added')
+    record.info()
+    print(mp,'Contact added')
     print(separator)
     
     
@@ -295,6 +304,7 @@ def show_addressbook():
     else:
         for record in ab:
             record.info()
+    print(separator)
     
     
 def feed_addressbook():
