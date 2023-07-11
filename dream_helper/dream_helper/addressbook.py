@@ -4,13 +4,13 @@ from pathlib import Path
 import re
 import os
 from fake_content import users
-import bot_messages as bm
+
 
 
 # file_name = 'AddressBook.bin'
 file_path = Path(__file__).parent / 'AddressBook.bin'
-separator = "\nhelper>>_ End option"
-mp = bm.prefix
+mp = '\nhelper>>_ '
+separator = mp + "End option"
 
 class Record:
     def __init__(self, name, phone=None, birthday=None, email=None, address=None, notes=''): 
@@ -305,6 +305,21 @@ def show_addressbook():
         for record in ab:
             record.info()
     print(separator)
+
+
+def find_show():
+    while True:
+        print(mp,'Choose option. all - shows all contacts in addressbook, find - searching contact by sample')
+        command = input("\n>_ ")
+        if command == "all":
+            show_addressbook()
+            break
+        elif command == "find":
+            search_contact()
+            break
+        else:
+            print(mp,'Option is not exists')
+            continue
     
     
 def feed_addressbook():

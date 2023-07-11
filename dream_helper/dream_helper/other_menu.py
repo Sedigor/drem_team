@@ -1,12 +1,14 @@
 from tkinter import *
+import radio
+
 def color_resistor():
-    pass
+    radio.color_resistor()
 
 def paral_resistor():
-    pass
+    radio.paral_resistor()
 
 def nominal_resistor():
-    pass
+    radio.nominal_resistor()
 
 def exit_but():
     tko.destroy()

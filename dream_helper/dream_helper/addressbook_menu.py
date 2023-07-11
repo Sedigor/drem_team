@@ -2,7 +2,7 @@ from tkinter import *
 import addressbook
 
 def find_contacts():
-    addressbook.search_contact()
+    addressbook.find_show()
 
 def birthdays():
     addressbook.days_to_birthday()

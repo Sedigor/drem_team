@@ -2,7 +2,8 @@ from datetime import datetime
 import os
 import pickle
 
-
+mp = '\nhelper>>_ '
+separator = mp + "End option"
 notes = {}
 max_nunber = 1
 file_name = 'Notes.bin'        
@@ -35,13 +36,13 @@ def write_notes(notes):
 def new_record():
     notes = open_notes()
     max_id = serch_max_id(notes)
-    print('Введіть текст:')
+    print(mp,'Enter the text')
     text = input()
 
     if len(text)<2:
         return
 
-    print('Ключеве слово:') 
+    print(mp,'Keyword') 
     tag = input()
     rec = [datetime.now(), text]
     if len(tag)>0:
@@ -51,7 +52,8 @@ def new_record():
 
     notes.update({max_id:rec})
     write_notes(notes)
-    print('Запис внесено.\n')
+    print(mp,'Note has been recorded')
+    print(separator)
     
     
 def print_records(notes, n_notes = 3, num_record=0 ):
@@ -61,14 +63,14 @@ def print_records(notes, n_notes = 3, num_record=0 ):
         notes = {num_record: notes[num_record]}
     for id, text in notes.items():
         if n == 0:
-            print('\nНатисніть <Enter> для продовження')
+            print(mp,'Press Enter to continue')
             input()
             n = n_notes
         len_id = len(str(id))
-        print(f"Запис {id} від {text[0].strftime('%d.%m.%Y, %M:%I')}"+'-'*(50-len_id))
+        print(f"Note {id} від {text[0].strftime('%d.%m.%Y, %M:%I')}"+'-'*(50-len_id))
         print(text[1])
         if len(text)>2:
-            tag = 'Ключове слово: '+ text[2]
+            tag = 'Keyword: '+ text[2]
             print(' '*(78 - len(tag)) + tag)
         print()
         n -= 1
@@ -77,57 +79,64 @@ def print_records(notes, n_notes = 3, num_record=0 ):
 def view_records():
     notes = open_notes()
     print_records(notes)
+    print(separator)
 
 
 def search_record():
     notes = open_notes()
     search_notes = {}
-    search_text = input('Введіть фразу для пошуку:')
+    print(mp,'Enter a phrase fo searching')
+    search_text = input('\n>_ ')
     for id, text in notes.items():
         if search_text in notes[id][1]:
             search_notes.update({id:notes[id]})
     if search_notes:
         print_records(search_notes)
     else:
-        print( '\n Запис із такою фразою не знайдено. \n')
+        print(mp,'No matches')
+        print(separator)
 
 
 def search_tag():
     notes = open_notes()
     search_notes = {}
-    search_text = input('Введіть ключеве слово для пошуку:')
+    print(mp,'Enter keyword for searching')
+    search_text = input('\n>_ ')
     for id, text in notes.items():
         if len(notes[id]) > 2 and search_text in notes[id][2]:
             search_notes.update({id:notes[id]})
     if search_notes:
         print_records(search_notes)
+        print(separator)
     else:
-        print( '\n Запис із таким ключевим словом не знайдено. \n')
+        print(mp,'No matches')
+        print(separator)
 
 
 def edit_record():
     notes = open_notes()
-    id_edit = input('Введіть номер запису для редагування:')
+    print(mp,'Enter note number for edit')
+    id_edit = input('\n>_ ')
     try:
         id_edit = int(id_edit)
     except:
-        print(f'\n{id_edit} не є номером запису!\n')
+        print(f'{mp}{id_edit} is not a note number!\n')
         return
     try:
         notes[id_edit]
     except:
-        print( '\n Запис із таким номером не знайдено. \n')
+        print(mp,'No matches')
         return
     search_notes = {id_edit:notes[id_edit]}
     print_records(search_notes)
 
-    print('Введіть новий текст:')
+    print(mp,'Enter new text')
     text = input()    
 
     if len(text)<2:
         return
 
-    print('Ключеве слово:') 
+    print('Keyword') 
     tag = input()
     rec = [datetime.now(), text]
     if len(tag)>0:
@@ -135,30 +144,34 @@ def edit_record():
 
     notes[id_edit] = rec
     write_notes(notes)
-    print('Зміни внесено.\n')
+    print(mp,'Changes update')
+    print(separator)
 
 
 def remuve_record():
     notes = open_notes()
-    id_edit = input('Введіть номер запису для видалення:')
+    print(mp,'Enter a note number to remove')
+    id_edit = input('\n>_ ')
     try:
         id_edit = int(id_edit)
     except:
-        print(f'\n{id_edit} не є номером запису!\n')
+        print(f'{mp}{id_edit} is not a note number!')
         return
     try:
         notes[id_edit]
     except:
-        print( '\n Запис із таким номером не знайдено. \n')
+        print(mp,'No matches')
         return
        
     search_notes = {id_edit:notes[id_edit]}
     print_records(search_notes)
-    k = input('Видалити поточний запис? (<Т> Так / інше - Ні?)')
+    print(mp,'Delete present note? y - Yes, n - No')
+    k = input('\n>_ ')
     if k == 'т' or k == 'Т' or k == 'n' or k ==  'N':
         notes.pop(id_edit)
         write_notes(notes)
-        print('Запис видалено.\n')
+        print(mp,'Note deleted')
+        print(separator)
    
 
 
